@@ -1,9 +1,10 @@
 import { Col, Card, ListGroup } from 'react-bootstrap';
+import Grid from '@mui/material/Grid';
 
 function Ridecard() {
     return (
         <>
-            <Col md={4}>
+            <Grid item md={4}>
                 <Card>
                 <Card.Header>Bus Stand</Card.Header>
                 <ListGroup>
@@ -12,7 +13,7 @@ function Ridecard() {
                 </ListGroup>
                 <Card.Footer>Join Group</Card.Footer>
                 </Card>
-            </Col>
+            </Grid>
         </>  
     )
 }
