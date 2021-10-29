@@ -1,25 +1,27 @@
 import { Container, Nav, Navbar} from 'react-bootstrap';
+import { Link, Switch, Route } from 'react-router-dom';
+import '../App.css'
 
 function Navigationbar() {
     return (
         <>
             <Navbar bg="dark" variant="dark" collapseOnSelect expand="lg">
                 <Container>
-                <Navbar.Brand href="#">Carpool</Navbar.Brand>
+                <Navbar.Brand ><Link className="navbrand-link" to="/">Carpool</Link></Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     <Nav >
                     <Nav.Item>
-                        <Nav.Link href="#" > Create Ride </Nav.Link>
+                        <Nav.Link as="div"><Link className="nav-link" to="/new">Create Ride</Link> </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="#" > All Rides </Nav.Link>
+                        <Nav.Link as="div"><Link className="nav-link" to="/">All Ride</Link></Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="#" > Login </Nav.Link>
+                        <Nav.Link as="div"> <Link className="nav-link" to="/login">Login</Link> </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="#" > Signup </Nav.Link>
+                        <Nav.Link as="div"> <Link className="nav-link" to="/signup">Signup</Link> </Nav.Link>
                     </Nav.Item>
                     </Nav>
                 </Navbar.Collapse>
