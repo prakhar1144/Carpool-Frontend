@@ -16,12 +16,10 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.response.use(
 	(response) => {
-        console.log(response);
 		return response;
 	},
 	async function (error) {
 		const originalRequest = error.config;
-        console.log(error.response);
 		if (typeof error.response === 'undefined') {
             console.log("here")
 			alert(
@@ -31,11 +29,12 @@ axiosInstance.interceptors.response.use(
 			);
 			return Promise.reject(error);
 		}
-
+        console.log(error.response);
 		if (
 			error.response.status === 401 &&
 			originalRequest.url === baseURL + 'token/refresh/'
 		) {
+            console.log("hell1")
 			window.location.href = '/login/';
 			return Promise.reject(error);
 		}
@@ -56,7 +55,7 @@ axiosInstance.interceptors.response.use(
 
 				if (tokenParts.exp > now) {
 					return axiosInstance
-						.post('/token/refresh/', { refresh: refreshToken })
+						.post('http://127.0.0.1:8000/api/token/refresh/', { refresh: refreshToken })
 						.then((response) => {
 							localStorage.setItem('access_token', response.data.access);
 							localStorage.setItem('refresh_token', response.data.refresh);

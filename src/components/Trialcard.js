@@ -1,10 +1,9 @@
 import CardContent from '@mui/material/CardContent';
 import Card from '@mui/material/Card';
-import { CardHeader, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid'
 import Divider from '@mui/material/Divider'
 import Button from '@mui/material/Button'
-import SendIcon from '@mui/icons-material/Send'
 
 function Trialcard() {
   return (

@@ -1,4 +1,4 @@
-import { Col, Card, ListGroup } from 'react-bootstrap';
+import { Card, ListGroup } from 'react-bootstrap';
 import Grid from '@mui/material/Grid';
 
 function Ridecard() {

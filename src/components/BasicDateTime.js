@@ -10,11 +10,13 @@ export default function BasicDateTimePicker() {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DateTimePicker
-        renderInput={(props) => <TextField {...props} fullWidth />}
-        placeholder={value}
+        ampm={false}
+        renderInput={(props) => <TextField name="datetime" {...props} fullWidth />}
+        value={value}
         onChange={(newValue) => {
           setValue(newValue);
         }}
+
       />
     </LocalizationProvider>
   );

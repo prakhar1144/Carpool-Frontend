@@ -9,18 +9,34 @@ import LocalTaxiOutlinedIcon from '@mui/icons-material/LocalTaxiOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import BasicDateTimePicker from '../components/BasicDateTime';
+import axiosInstance from '../axios';
+import { Redirect } from 'react-router';
 
 export default function CreateRide() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
 
+    let datetime = data.get('datetime');
+    let date = datetime.split(" ")[0];
+    let time = datetime.split(" ")[1];
+    let [m,d,y] = date.split("/");
+    let finaldatetime = y+"-"+m+"-"+d + "T" + time +":00.447Z";
+
+    axiosInstance
+    .post(`http://127.0.0.1:8000/api/create/`,{
+        'destination':data.get('destination'),
+        'departure_time':finaldatetime,
+      })
+    .then((res)=>{
+        console.log("show created");
+        <Redirect to="/"/> // In fututre, will open that ride details
+    })
+    .catch((e) => {
+        console.log(e);
+    })
+  };
+  
   return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -65,4 +81,4 @@ export default function CreateRide() {
         </Box>
     </Container>
   )
-}
+        }

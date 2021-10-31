@@ -19,7 +19,7 @@ function Navigationbar({loggedIn}) {
                     </Nav.Item>
                     { loggedIn ?
                     <Nav.Item>
-                        <Nav.Link as="div"> <Link className="nav-link" to="/login">Logout</Link> </Nav.Link>
+                        <Nav.Link as="div"> <Link className="nav-link" to="/logout">Logout</Link> </Nav.Link>
                     </Nav.Item>
                     :
                     <>
