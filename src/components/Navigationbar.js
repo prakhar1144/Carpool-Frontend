@@ -1,8 +1,8 @@
 import { Container, Nav, Navbar} from 'react-bootstrap';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../App.css'
 
-function Navigationbar() {
+function Navigationbar({loggedIn}) {
     return (
         <>
             <Navbar bg="dark" variant="dark" collapseOnSelect expand="lg">
@@ -17,12 +17,20 @@ function Navigationbar() {
                     <Nav.Item>
                         <Nav.Link as="div"><Link className="nav-link" to="/">All Ride</Link></Nav.Link>
                     </Nav.Item>
+                    { loggedIn ?
+                    <Nav.Item>
+                        <Nav.Link as="div"> <Link className="nav-link" to="/login">Logout</Link> </Nav.Link>
+                    </Nav.Item>
+                    :
+                    <>
                     <Nav.Item>
                         <Nav.Link as="div"> <Link className="nav-link" to="/login">Login</Link> </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                         <Nav.Link as="div"> <Link className="nav-link" to="/signup">Signup</Link> </Nav.Link>
                     </Nav.Item>
+                    </>
+}
                     </Nav>
                 </Navbar.Collapse>
                 </Container>

@@ -9,17 +9,51 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
-
+import axiosInstance from '../axios'
+import { useState,useEffect } from 'react';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 export default function Register() {
+  const [exists, setExists] = useState(false);
+  const [Invalid, setInvalid ] = useState(false);
+
+  const handleExistsClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setExists(false);
+  };
+  const handleInvalidClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setInvalid(false);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    axiosInstance
+    .post(`http://127.0.0.1:8000/api/signup/`,{
+        'email':data.get('email'),
+        'password':data.get('password'),
+      })
+    .then((res)=>{
+        alert("check your mail");
+    })
+    .catch((e) => {
+        if (e.response && e.response.data.email[0]==="user with this email already exists.")
+        {
+          setExists(true);
+        }
+        else if (e.response && e.response.data.email[0]==="Enter a valid email address.")
+        {
+          setInvalid(true);
+        }
+        console.log(e);
+    })
   };
 
   return (
@@ -78,6 +112,18 @@ export default function Register() {
             </Grid>
           </Box>
         </Box>
+
+        <Snackbar open={exists} autoHideDuration={6000} onClose={handleExistsClose}>
+          <Alert onClose={handleExistsClose} severity="error" sx={{ width: '100%' }}>
+            User Already Exists!
+          </Alert>
+        </Snackbar>
+        <Snackbar open={Invalid} autoHideDuration={6000} onClose={handleInvalidClose}>
+          <Alert onClose={handleInvalidClose} severity="error" sx={{ width: '100%' }}>
+            Invalid Email!
+          </Alert>
+        </Snackbar>
+
       </Container>
   );
 }

@@ -9,7 +9,7 @@ import SendIcon from '@mui/icons-material/Send'
 function Trialcard() {
   return (
 <Grid item md={4} sm={6} xs={12}>
-    <Card sx={{borderRadius:2, backgroundColor: "#f7f7f7"}} raised="true">
+    <Card sx={{borderRadius:2, backgroundColor: "#f7f7f7"}} raised={true}>
         <CardContent align="center">
             <Typography  gutterBottom variant="h6"  sx={{ fontFamily:"inherit"}}>Hamirpur</Typography>
             {/* <Typography variant="caption" sx={{color:'text.secondary'}}>12/05/21</Typography> */}

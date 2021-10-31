@@ -12,18 +12,23 @@ import {BrowserRouter, Switch, Route, Link} from 'react-router-dom';
 import Register from './pages/Register'
 import LogIn from './pages/Login';
 import CreateRide from './pages/CreateRide';
+import CreateAccount from './pages/CreateAccount';
+import { NotFound } from './pages/NotFound';
+import { useState } from 'react';
 
 function App() {
+
   const create_ride = {
     position: 'fixed',
     bottom: 16,
     right: 32,
   };
+  const [LoggedIn, setLoggedIn] = useState(false);
 
   return (
     <>
     <BrowserRouter>
-      <Navigationbar />
+      <Navigationbar loggedIn={LoggedIn}/>
       {/* <AppBar position="static" color="primary">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>Carpool</Typography>
@@ -32,9 +37,10 @@ function App() {
 
       <Switch>
           <Route path="/new" ><CreateRide/></Route>
-          <Route path="/login" ><LogIn/></Route>
+          <Route path="/login"><LogIn setLoggedIn={setLoggedIn}/></Route>
           <Route path="/signup" ><Register/></Route>
-          <Route path="/">
+          <Route path="/email/verify"><CreateAccount setLoggedIn={setLoggedIn}/></Route>
+          <Route path="/" exact>
           <Container>
               <h3 className="text-center my-5">Upcoming Rides</h3>
               <Grid container spacing={3}>
@@ -47,6 +53,7 @@ function App() {
               </Grid>
           </Container>
           </Route>
+          <Route><NotFound/></Route>
       </Switch>
       <Fab component={Link} to="/new" color="primary" size="large" sx={create_ride}>
         <AddIcon />

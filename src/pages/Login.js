@@ -3,40 +3,46 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axiosInstance from 'axios';
+import { useHistory } from 'react-router';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import { useState } from 'react';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-const theme = createTheme();
-
-export default function LogIn() {
+export default function LogIn({setLoggedIn}) {
+  const [Invalid, setInvalid ] = useState(false);
+  const handleInvalidClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setInvalid(false);
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    axiosInstance
+    .post(`http://127.0.0.1:8000/api/login/`,{
+        'email':data.get('email'),
+        'password':data.get('password'),
+      })
+    .then((res)=>{
+      localStorage.setItem('access_token', res.data.access);
+      localStorage.setItem('refresh_token', res.data.refresh);
+      axiosInstance.defaults.headers['Authorization'] = 
+      'Bearer ' + localStorage.getItem('access_token');
+       setLoggedIn(true);
+    })
+    .catch((e) => {
+        console.log(typeof e.response); // handling network error is pending
+        setInvalid(true);
+    })
   };
 
   return (
@@ -97,6 +103,11 @@ export default function LogIn() {
             </Grid>
           </Box>
         </Box>
+        <Snackbar open={Invalid} autoHideDuration={6000} onClose={handleInvalidClose}>
+          <Alert onClose={handleInvalidClose} severity="error" sx={{ width: '100%' }}>
+            Invalid Email/Password!
+          </Alert>
+        </Snackbar>
       </Container>
   );
 }
