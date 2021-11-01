@@ -9,7 +9,7 @@ import LocalTaxiOutlinedIcon from '@mui/icons-material/LocalTaxiOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import BasicDateTimePicker from '../components/BasicDateTime';
-import axiosInstance from '../axios';
+import axiosInstance from '../customaxios';
 import { Redirect } from 'react-router';
 
 export default function CreateRide() {
@@ -29,7 +29,6 @@ export default function CreateRide() {
         'departure_time':finaldatetime,
       })
     .then((res)=>{
-        console.log("show created");
         <Redirect to="/"/> // In fututre, will open that ride details
     })
     .catch((e) => {

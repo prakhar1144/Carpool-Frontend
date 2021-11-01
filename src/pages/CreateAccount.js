@@ -1,5 +1,5 @@
-import {useLocation, useHistory} from 'react-router-dom'
-import axiosInstance from '../axios'
+import {useLocation} from 'react-router-dom'
+import axiosInstance from '../customaxios'
 import { useEffect, useState } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
@@ -10,7 +10,6 @@ function useQuery() {
 
 function CreateAccount({setLoggedIn}) {
     let query = useQuery();
-    console.log(query.get("token"));
     const [Invalid, setInvalid] = useState(false);
     const handleClose = (event, reason) => {
       if (reason === 'clickaway') {

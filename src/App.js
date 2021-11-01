@@ -1,12 +1,7 @@
 import './App.css';
 import Navigationbar from './components/Navigationbar';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-// import AppBar from '@mui/material/AppBar';
-// import Toolbar from '@mui/material/Toolbar';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import Trialcard from './components/Trialcard';
 import {BrowserRouter, Switch, Route, Link} from 'react-router-dom';
 import Register from './pages/Register'
 import LogIn from './pages/Login';
@@ -17,6 +12,7 @@ import { useState,useEffect } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Logout from './pages/Logout'
+import ListRides from './pages/ListRides';
 
 function App() {
 
@@ -29,7 +25,6 @@ function App() {
 
   useEffect(() => {
     const rt = localStorage.getItem("refresh_token");
-    console.log(rt);
     if(rt)
     {
       axios.defaults.baseURL = 'http://127.0.0.1:8000/api';
@@ -55,22 +50,12 @@ function App() {
 
       <Switch>
           <Route path="/new" >{ LoggedIn ? <CreateRide/> : <Redirect to="/login"/>}</Route>
-          <Route path="/login"><LogIn setLoggedIn={setLoggedIn}/></Route>
-          <Route path="/logout"><Logout setLoggedIn={setLoggedIn}/></Route>
+          <Route path="/login" render={(props)=> <LogIn setLoggedIn={setLoggedIn} {...props}/>} />
+          <Route path="/logout" render={(props)=> <Logout setLoggedIn={setLoggedIn} {...props}/>} />
           <Route path="/signup" ><Register/></Route>
           <Route path="/verify"><CreateAccount setLoggedIn={setLoggedIn}/></Route>
           <Route path="/" exact>
-          <Container>
-              <h3 className="text-center my-5">Upcoming Rides</h3>
-              <Grid container spacing={3}>
-                <Trialcard/>
-                <Trialcard/>
-                <Trialcard/>
-                <Trialcard/>
-                <Trialcard/>
-                <Trialcard/>
-              </Grid>
-          </Container>
+            <ListRides/>
           </Route>
           <Route><NotFound/></Route>
       </Switch>

@@ -9,12 +9,12 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import axiosInstance from 'axios';
+import axiosInstance from '../customaxios';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { useState } from 'react';
 
-export default function LogIn({setLoggedIn}) {
+export default function LogIn(props) {
   const [Invalid, setInvalid ] = useState(false);
   const handleInvalidClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -25,24 +25,22 @@ export default function LogIn({setLoggedIn}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log(data.get('email'))
-    console.log(data.get('password'));
-    axiosInstance.defaults.headers['Authorization'] = null;
+
     axiosInstance
     .post(`http://127.0.0.1:8000/api/login/`,{
-        'email':data.get('email'),
+        'email': data.get('email'),
         'password':data.get('password'),
       })
     .then((res)=>{
       localStorage.setItem('access_token', res.data.access);
       localStorage.setItem('refresh_token', res.data.refresh);
       axiosInstance.defaults.headers['Authorization'] = 
-      'Bearer ' + localStorage.getItem('access_token');
-       setLoggedIn(true);
+      'Bearer ' + res.data.access;
+       props.setLoggedIn(true);
        setInvalid(false);
     })
     .catch((e) => {
-        console.log(e); // handling network error is pending
+        console.log(e);
         setInvalid(true);
     })
   };

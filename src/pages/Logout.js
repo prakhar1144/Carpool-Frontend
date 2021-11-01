@@ -1,11 +1,8 @@
-import { Redirect } from "react-router";
-import axiosInstance from "../axios";
+import axiosInstance from "../customaxios";
 import { useEffect } from "react";
 
-function Logout({setLoggedIn}){
+function Logout(props){
     useEffect(() => {
-        console.log(localStorage.getItem("refresh_token"))
-        console.log("pehlibaar")
         axiosInstance
         .post(`http://127.0.0.1:8000/api/logout/`,{
             'refresh_token': localStorage.getItem("refresh_token"),
@@ -14,9 +11,8 @@ function Logout({setLoggedIn}){
           localStorage.removeItem('access_token');
           localStorage.removeItem('refresh_token');
           axiosInstance.defaults.headers['Authorization'] = null;
-          console.log(res.status)
-          setLoggedIn(false);
-          <Redirect to="/"/>
+          props.setLoggedIn(false);
+          props.history.goBack()
         })
         .catch((e) => {
             console.log(e);
