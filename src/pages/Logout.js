@@ -4,7 +4,7 @@ import { useEffect } from "react";
 function Logout(props){
     useEffect(() => {
         axiosInstance
-        .post(`http://127.0.0.1:8000/api/logout/`,{
+        .post(process.env.REACT_APP_BACKEND_URL + 'api/logout/',{
             'refresh_token': localStorage.getItem("refresh_token"),
         })
         .then((res)=>{

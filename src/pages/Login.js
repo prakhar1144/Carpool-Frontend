@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -16,6 +16,7 @@ import { useState } from 'react';
 
 export default function LogIn(props) {
   const [Invalid, setInvalid ] = useState(false);
+  let history = useHistory()
   const handleInvalidClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -27,7 +28,7 @@ export default function LogIn(props) {
     const data = new FormData(event.currentTarget);
 
     axiosInstance
-    .post(`http://127.0.0.1:8000/api/login/`,{
+    .post(process.env.REACT_APP_BACKEND_URL + 'api/login/',{
         'email': data.get('email'),
         'password':data.get('password'),
       })
@@ -38,6 +39,7 @@ export default function LogIn(props) {
       'Bearer ' + res.data.access;
        props.setLoggedIn(true);
        setInvalid(false);
+       history.push("/");
     })
     .catch((e) => {
         console.log(e);

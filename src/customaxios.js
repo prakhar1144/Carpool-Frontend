@@ -2,7 +2,7 @@ import axios from "axios";
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api/',
+    baseURL: process.env.REACT_APP_BACKEND_URL + 'api/',
     headers: {
         'Content-Type': 'application/json',
         accept: 'application/json',
@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
 });
 
 // Function that will be called to refresh authorization
-const refreshAuthLogic = failedRequest => axiosInstance.post('http://127.0.0.1:8000/api/token/refresh/',
+const refreshAuthLogic = failedRequest => axiosInstance.post(process.env.REACT_APP_BACKEND_URL + 'api/token/refresh/',
 	{'refresh': localStorage.getItem("refresh_token")}
 ).then(tokenRefreshResponse => {
     localStorage.setItem('access_token', tokenRefreshResponse.data.access);

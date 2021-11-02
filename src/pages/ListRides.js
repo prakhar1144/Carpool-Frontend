@@ -8,7 +8,7 @@ const ListRides = ({rides}) => {
     const [Rides, setRides] = useState([]);
 
     function getRides(){
-      axiosInstance.get('http://127.0.0.1:8000/api/list/',{ skipAuthRefresh: true })
+      axiosInstance.get(process.env.REACT_APP_BACKEND_URL + 'api/list/',{ skipAuthRefresh: true })
       .then((response)=>{
         setRides(response.data);
       })

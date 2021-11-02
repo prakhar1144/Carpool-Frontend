@@ -32,7 +32,7 @@ function ForgotPassword() {
         const data = new FormData(event.currentTarget);
         console.log(query)
         axiosInstance
-        .put(`http://127.0.0.1:8000/api/reset/`,{
+        .put(process.env.REACT_APP_BACKEND_URL + 'api/reset/',{
             'new_password': data.get('password'),
             'secret_code': query.get("token"),
           })

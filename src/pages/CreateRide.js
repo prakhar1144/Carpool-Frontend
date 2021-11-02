@@ -10,9 +10,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import BasicDateTimePicker from '../components/BasicDateTime';
 import axiosInstance from '../customaxios';
-import { Redirect } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 export default function CreateRide() {
+  let history = useHistory();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -24,12 +25,12 @@ export default function CreateRide() {
     let finaldatetime = y+"-"+m+"-"+d + "T" + time +":00.447Z";
 
     axiosInstance
-    .post(`http://127.0.0.1:8000/api/create/`,{
+    .post(process.env.REACT_APP_BACKEND_URL + 'api/create/',{
         'destination':data.get('destination'),
         'departure_time':finaldatetime,
       })
     .then((res)=>{
-        <Redirect to="/"/> // In fututre, will open that ride details
+        history.push("/") // In fututre, will open that ride details
     })
     .catch((e) => {
         console.log(e);

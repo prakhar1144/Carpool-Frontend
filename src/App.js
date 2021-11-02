@@ -29,7 +29,7 @@ function App() {
     const rt = localStorage.getItem("refresh_token");
     if(rt)
     {
-      axios.defaults.baseURL = 'http://127.0.0.1:8000/api';
+      axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL + 'api';
       axios.post('/token/refresh/',
       {
         'refresh':rt
