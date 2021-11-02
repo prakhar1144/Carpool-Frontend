@@ -36,7 +36,7 @@ function CreateAccount({setLoggedIn}) {
                 setInvalid(true);
             }
         })
-    },[])
+    },[]) // eslint-disable-line react-hooks/exhaustive-deps
     return (
         <>
         <h1>Verifying Email...</h1>
