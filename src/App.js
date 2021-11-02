@@ -13,6 +13,8 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Logout from './pages/Logout'
 import ListRides from './pages/ListRides';
+import ForgotPassword from './pages/ForgotPassword'
+import NewPassword from './pages/NewPassword'
 
 function App() {
 
@@ -54,6 +56,8 @@ function App() {
           <Route path="/logout" render={(props)=> <Logout setLoggedIn={setLoggedIn} {...props}/>} />
           <Route path="/signup" ><Register/></Route>
           <Route path="/verify"><CreateAccount setLoggedIn={setLoggedIn}/></Route>
+          <Route path="/reset"><ForgotPassword/></Route>
+          <Route path="/newpassword"><NewPassword/></Route>
           <Route path="/" exact>
             <ListRides/>
           </Route>

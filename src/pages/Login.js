@@ -91,7 +91,7 @@ export default function LogIn(props) {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link to="#" variant="body2">
+                <Link to="/reset" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
