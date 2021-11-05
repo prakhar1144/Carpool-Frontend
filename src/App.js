@@ -15,6 +15,7 @@ import Logout from './pages/Logout'
 import ListRides from './pages/ListRides';
 import ForgotPassword from './pages/ForgotPassword'
 import NewPassword from './pages/NewPassword'
+import Chat from './pages/Chat';
 
 function App() {
 
@@ -58,6 +59,7 @@ function App() {
           <Route path="/verify"><CreateAccount setLoggedIn={setLoggedIn}/></Route>
           <Route path="/reset"><ForgotPassword/></Route>
           <Route path="/newpassword"><NewPassword/></Route>
+          <Route path="/chat/:id" children={<Chat/>}></Route>
           <Route path="/" exact>
             <ListRides/>
           </Route>

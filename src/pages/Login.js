@@ -35,6 +35,7 @@ export default function LogIn(props) {
     .then((res)=>{
       localStorage.setItem('access_token', res.data.access);
       localStorage.setItem('refresh_token', res.data.refresh);
+      localStorage.setItem('user_id', res.data.user_id);
       axiosInstance.defaults.headers['Authorization'] = 
       'Bearer ' + res.data.access;
        props.setLoggedIn(true);

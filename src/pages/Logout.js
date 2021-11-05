@@ -10,6 +10,7 @@ function Logout(props){
         .then((res)=>{
           localStorage.removeItem('access_token');
           localStorage.removeItem('refresh_token');
+          localStorage.removeItem('user_id');
           axiosInstance.defaults.headers['Authorization'] = null;
           props.setLoggedIn(false);
           props.history.push("/")

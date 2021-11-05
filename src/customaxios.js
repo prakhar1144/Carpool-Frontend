@@ -17,6 +17,11 @@ const refreshAuthLogic = failedRequest => axiosInstance.post(process.env.REACT_A
 	localStorage.setItem('refresh_token', tokenRefreshResponse.data.refresh);
     failedRequest.response.config.headers['Authorization'] = 'Bearer ' + tokenRefreshResponse.data.access;
     return Promise.resolve();
+}).catch((e)=>{
+    localStorage.removeItem('access_token');
+	localStorage.removeItem('refresh_token');
+    localStorage.removeItem('user_id');
+    window.location.href = "/login"
 });
 
 // Instantiate the interceptor

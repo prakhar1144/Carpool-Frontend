@@ -4,10 +4,33 @@ import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid'
 import Divider from '@mui/material/Divider'
 import Button from '@mui/material/Button'
+import { useState, useEffect } from 'react';
+import axiosInstance from '../customaxios';
 
 function Trialcard({ride}) {
+    const [joined, setJoined] = useState(false);
+    let user_id = localStorage.getItem("user_id")
+    function handleClick() {
+        if (user_id) {
+        axiosInstance
+        .put(process.env.REACT_APP_BACKEND_URL + `api/join/${ride.id}`)
+        .then(()=>{
+            setJoined(!joined);
+        })
+        .catch((e)=>{
+            console.log(e)
+        })
+    }
+    }
+    useEffect(() => {
+        if (user_id){
+        if(JSON.stringify(ride.members).includes(user_id))
+        {
+            setJoined(true);
+        }
+    }
+    },[]) // eslint-disable-line react-hooks/exhaustive-deps
     let date,time;
-
     [date, time] = ride.departure_time.split("T");
     time = time.substring(0,5);
 
@@ -28,9 +51,20 @@ function Trialcard({ride}) {
                     <Typography variant="caption" align="center" sx={{color:'text.secondary'}}>{ride.members.length}/5</Typography>
                 </Grid>
             </Grid>
-            <Button variant="outlined" size="small" >
+            { joined ?
+            <>
+                <Button variant="outlined" size="small" onClick={handleClick}>
+                    Leave
+                </Button> 
+                <Button variant="outlined" size="small" href={`/chat/${ride.id}`}>
+                    Chat
+                </Button>
+            </>
+            : 
+            <Button variant="outlined" size="small" onClick={handleClick}>
                 Join
-            </Button>   
+            </Button>
+}
         </CardContent>
     </Card>
 </Grid>
