@@ -18,8 +18,8 @@ const Chat = () => {
     useEffect(() => {
 
             chatSocket = new WebSocket(
-                'ws://'
-                + '127.0.0.1:8000'
+                'wss://'
+                + 'apis-carpool.herokuapp.com'
                 + '/ws/chat/'
                 + id
                 + '/'
