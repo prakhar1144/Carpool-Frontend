@@ -2,7 +2,7 @@ import './App.css';
 import Navigationbar from './components/Navigationbar';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import {BrowserRouter, Switch, Route, Link} from 'react-router-dom';
+import {Switch, Route, Link} from 'react-router-dom';
 import Register from './pages/Register'
 import LogIn from './pages/Login';
 import CreateRide from './pages/CreateRide';
@@ -11,13 +11,14 @@ import { NotFound } from './pages/NotFound';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import Logout from './pages/Logout'
 import ListRides from './pages/ListRides';
 import ForgotPassword from './pages/ForgotPassword'
 import NewPassword from './pages/NewPassword'
 import Chat from './pages/Chat';
 
-function App() {
+function App(props) {
 
   const create_ride = {
     position: 'fixed',
@@ -48,7 +49,6 @@ function App() {
 
   return (
     <>
-    <BrowserRouter>
       <Navigationbar loggedIn={LoggedIn}/>
 
       <Switch>
@@ -65,12 +65,17 @@ function App() {
           </Route>
           <Route><NotFound/></Route>
       </Switch>
-      <Fab component={Link} to="/new" color="primary" size="large" sx={create_ride}>
-        <AddIcon />
-      </Fab>
-    </BrowserRouter>
+      {
+        props.location.pathname.includes('/chat/')
+        ?
+        null
+        : 
+          <Fab component={Link} to="/new" color="primary" size="large" sx={create_ride}>
+            <AddIcon />
+          </Fab>
+      }
     </>
   );
 }
 
-export default App;
+export default withRouter(App);
