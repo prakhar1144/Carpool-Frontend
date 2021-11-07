@@ -6,6 +6,7 @@ import Divider from '@mui/material/Divider'
 import Button from '@mui/material/Button'
 import { useState, useEffect } from 'react';
 import axiosInstance from '../customaxios';
+import { Link } from 'react-router-dom';
 
 function Trialcard({ride}) {
     const [joined, setJoined] = useState(false);
@@ -53,10 +54,10 @@ function Trialcard({ride}) {
             </Grid>
             { joined ?
             <>
-                <Button variant="outlined" size="small" onClick={handleClick}>
+                <Button sx={{"marginRight":"2px"}} variant="outlined" size="small" onClick={handleClick}>
                     Leave
                 </Button> 
-                <Button variant="outlined" size="small" href={`/chat/${ride.id}`}>
+                <Button sx={{"marginLeft":"2px"}} component={Link} to={`/chat/${ride.id}`} variant="outlined" size="small" >
                     Chat
                 </Button>
             </>
