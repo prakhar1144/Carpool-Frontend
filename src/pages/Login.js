@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import { Link, useHistory } from 'react-router-dom';
@@ -16,6 +16,7 @@ import { useState } from 'react';
 
 export default function LogIn(props) {
   const [Invalid, setInvalid ] = useState(false);
+  const [loading, setLoading] = useState(false);
   let history = useHistory()
   const handleInvalidClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -26,6 +27,7 @@ export default function LogIn(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    setLoading(true);
 
     axiosInstance
     .post(process.env.REACT_APP_BACKEND_URL + 'api/login/',{
@@ -46,6 +48,9 @@ export default function LogIn(props) {
         console.log(e);
         setInvalid(true);
     })
+    .finally(()=>{
+      setLoading(false);
+    }) 
   };
 
   return (
@@ -84,14 +89,16 @@ export default function LogIn(props) {
               type="password"
               id="password"
             />
-            <Button
+            <LoadingButton
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              loading={loading}
+              loadingIndicator="Signing In..."
             >
               Sign In
-            </Button>
+            </LoadingButton>
             <Grid container>
               <Grid item xs>
                 <Link to="/reset" variant="body2">

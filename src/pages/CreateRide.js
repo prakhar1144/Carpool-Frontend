@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -11,12 +11,16 @@ import Container from '@mui/material/Container';
 import BasicDateTimePicker from '../components/BasicDateTime';
 import axiosInstance from '../customaxios';
 import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function CreateRide() {
   let history = useHistory();
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    setLoading(true);
 
     let datetime = data.get('datetime');
     let date = datetime.split(" ")[0];
@@ -35,6 +39,9 @@ export default function CreateRide() {
     .catch((e) => {
         console.log(e);
     })
+    .finally(()=>{
+      setLoading(false);
+    }) 
   };
   
   return (
@@ -69,14 +76,16 @@ export default function CreateRide() {
                 <BasicDateTimePicker/>
               </Grid>
             </Grid>
-            <Button
+            <LoadingButton
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              loading={loading}
+              loadingIndicator="Creating..."
             >
               Create
-            </Button>
+            </LoadingButton>
         </Box>
         </Box>
     </Container>

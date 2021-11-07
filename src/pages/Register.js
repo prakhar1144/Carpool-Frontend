@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -17,6 +17,7 @@ import Alert from '@mui/material/Alert';
 export default function Register() {
   const [exists, setExists] = useState(false);
   const [Invalid, setInvalid ] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleExistsClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -34,7 +35,7 @@ export default function Register() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
+    setLoading(true);
     axiosInstance
     .post(process.env.REACT_APP_BACKEND_URL + 'api/signup/',{
         'email':data.get('email'),
@@ -53,6 +54,9 @@ export default function Register() {
           setInvalid(true);
         }
         console.log(e);
+    })
+    .finally(()=>{
+      setLoading(false);
     })
   };
 
@@ -95,14 +99,16 @@ export default function Register() {
                 />
               </Grid>
             </Grid>
-            <Button
+            <LoadingButton
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              loading={loading}
+              loadingIndicator="Signing Up..."
             >
               Sign Up
-            </Button>
+            </LoadingButton>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link to="/login" variant="body2">
