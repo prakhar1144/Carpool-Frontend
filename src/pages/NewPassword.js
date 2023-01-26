@@ -17,16 +17,18 @@ function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
-function ForgotPassword() {
+function NewPassword() {
     let query = useQuery();
     let history = useHistory();
     const [Invalid, setInvalid ] = useState(false);
+
     const handleInvalidClose = (event, reason) => {
       if (reason === 'clickaway') {
         return;
       }
       setInvalid(false);
     };
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -93,4 +95,4 @@ function ForgotPassword() {
     )
 }
 
-export default ForgotPassword
+export default NewPassword

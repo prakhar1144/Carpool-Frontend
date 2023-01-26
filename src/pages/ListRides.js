@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid"
-import Trialcard from "../components/Trialcard"
+import RideCard from "../components/RideCard"
 import Container from '@mui/material/Container';
 import { useEffect,useState } from "react";
 import axiosInstance from '../customaxios';
@@ -26,7 +26,7 @@ const ListRides = ({rides}) => {
             <h3 className="text-center my-5">Upcoming Rides</h3>
             <Grid container spacing={3}>
                 {Rides.map((ride)=>{
-                    return (<Trialcard key={ride.id} ride={ride} />)
+                    return (<RideCard key={ride.id} ride={ride} />)
                 })}
             </Grid>
         </Container>

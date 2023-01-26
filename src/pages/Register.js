@@ -33,7 +33,7 @@ export default function Register() {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault(); // stop default behaviour like refresh on submit
     const data = new FormData(event.currentTarget);
     setLoading(true);
     axiosInstance

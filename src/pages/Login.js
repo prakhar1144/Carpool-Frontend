@@ -18,12 +18,14 @@ export default function LogIn(props) {
   const [Invalid, setInvalid ] = useState(false);
   const [loading, setLoading] = useState(false);
   let history = useHistory()
+
   const handleInvalidClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
     setInvalid(false);
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);

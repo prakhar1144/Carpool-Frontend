@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import axiosInstance from '../customaxios';
 import { Link } from 'react-router-dom';
 
-function Trialcard({ride}) {
+function RideCard({ride}) {
     const [joined, setJoined] = useState(false);
     let user_id = localStorage.getItem("user_id")
     function handleClick() {
@@ -72,4 +72,4 @@ function Trialcard({ride}) {
   )
 }
 
-export default Trialcard;
+export default RideCard;

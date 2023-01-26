@@ -14,12 +14,14 @@ import { useState } from 'react';
 
 function ForgotPassword() {
     const [Invalid, setInvalid ] = useState(false);
+
     const handleInvalidClose = (event, reason) => {
       if (reason === 'clickaway') {
         return;
       }
       setInvalid(false);
     };
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);

@@ -1,22 +1,23 @@
 import './App.css';
-import Navigationbar from './components/Navigationbar';
+import axios from 'axios';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import {Switch, Route, Link} from 'react-router-dom';
-import Register from './pages/Register'
-import LogIn from './pages/Login';
-import CreateRide from './pages/CreateRide';
-import CreateAccount from './pages/CreateAccount';
-import { NotFound } from './pages/NotFound';
-import { useState,useEffect } from 'react';
-import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+
 import { withRouter } from 'react-router';
-import Logout from './pages/Logout'
-import ListRides from './pages/ListRides';
-import ForgotPassword from './pages/ForgotPassword'
-import NewPassword from './pages/NewPassword'
+import { useState,useEffect } from 'react';
+import { Switch, Route, Link, Redirect } from 'react-router-dom';
+
 import Chat from './pages/Chat';
+import LogIn from './pages/Login';
+import Logout from './pages/Logout';
+import Register from './pages/Register'
+import ListRides from './pages/ListRides';
+import CreateRide from './pages/CreateRide';
+import { NotFound } from './pages/NotFound';
+import NewPassword from './pages/NewPassword';
+import CreateAccount from './pages/CreateAccount';
+import ForgotPassword from './pages/ForgotPassword';
+import Navigationbar from './components/Navigationbar';
 
 function App(props) {
 
@@ -25,16 +26,20 @@ function App(props) {
     bottom: 16,
     right: 32,
   };
+
   const [LoggedIn, setLoggedIn] = useState(false);
 
+  // When a user visits the site, try to fetch refresh_token from localstorage. If exists, try to login user.
   useEffect(() => {
-    const rt = localStorage.getItem("refresh_token");
-    if(rt)
+
+    const refresh_token = localStorage.getItem("refresh_token");
+
+    if(refresh_token)
     {
       axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL + 'api';
       axios.post('/token/refresh/',
       {
-        'refresh':rt
+        'refresh':refresh_token
       })
       .then((response)=>{
         localStorage.setItem('access_token', response.data.access);
