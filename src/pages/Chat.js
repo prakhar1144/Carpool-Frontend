@@ -19,7 +19,7 @@ const Chat = () => {
 
             chatSocket = new WebSocket(
                 'wss://'
-                + 'apis-carpool.herokuapp.com'
+                + 'api-carpool.onrender.com'
                 + '/ws/chat/'
                 + id
                 + '/'
